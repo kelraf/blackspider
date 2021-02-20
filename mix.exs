@@ -46,7 +46,8 @@ defmodule Blackspider.Mixfile do
       {:cors_plug, "~> 2.0"},
       {:guardian, github: "ueberauth/guardian"},
       {:websockex, "~> 0.4.2"},
-      {:jason, "~> 1.2"}
+      {:jason, "~> 1.2"},
+      {:httpoison, "~> 1.8"}
     ]
   end
 
