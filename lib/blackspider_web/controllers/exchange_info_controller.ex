@@ -15,9 +15,7 @@ defmodule BlackspiderWeb.ExchangeInfoController do
           conn
           |> json(%{
             status: "success",
-            data: exchange_data["data"] #|> Map.get("data")
-            #|> IO.inspect |> Map.get(:symbols) 
-             #|> __MODULE__.arbMapper
+            data: Poison.decode!(body) |> Map.get("symbols") |> __MODULE__.arbMapper
           })
 
         {:ok, %{status_code: 404}} ->
@@ -42,7 +40,7 @@ defmodule BlackspiderWeb.ExchangeInfoController do
 
     def arbMapper(symbols) do
       
-      for first_pair <- symbols, second_pair <- symbols, third_pair <- symbols, do: %{first_pair: first_pair.symbol, second_pair: second_pair.symbol, third_pair: third_pair.symbol}
+      for first_pair <- symbols, second_pair <- symbols, third_pair <- symbols, do: %{"first_pair": first_pair["symbol"], "second_pair": second_pair["symbol"], "third_pair": third_pair["symbol"]}
 
     end
 
