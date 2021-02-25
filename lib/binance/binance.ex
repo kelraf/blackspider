@@ -41,4 +41,8 @@ defmodule Blackspider.Binance do
 
     end
 
+    def calcArb(event) do
+        
+    end
+
   end
