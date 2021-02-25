@@ -4,14 +4,15 @@ defmodule Blackspider.Binance do
 
    _stream_endpoint = "wss://stream.binance.com:9443/ws/"
   
-    def start_link(symbol, state) do
-      WebSockex.start_link("wss://stream.binance.com:9443/ws/#{symbol}@trade", __MODULE__, state)
+    def start_link(symbol_one, symbol_two, state) do
+    #   WebSockex.start_link("wss://stream.binance.com:9443/ws/#{symbol}@bookTicker", __MODULE__, state)
+    WebSockex.start_link("wss://stream.binance.com:9443/stream?streams=#{symbol_one}@bookTicker/#{symbol_two}@bookTicker", __MODULE__, state)
     end
   
     def handle_frame({type, msg}, state) do
 
         case Jason.decode(msg) do
-            {:ok, event} -> handle_cast(event, state)
+            {:ok, event} -> IO.inspect event #handle_cast(event, state)
             {:error, _} -> throw("Error processing the message: #{msg}")
         end
 
